@@ -1,5 +1,6 @@
 package com.example.hanks.gesturephonecall_1;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
@@ -8,6 +9,8 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.io.File;
@@ -18,6 +21,7 @@ import java.util.Set;
 public class ListGestureActivity extends AppCompatActivity {
     ListView lv;
     GestureLibrary library;
+    Button btnGesturePhoneCall, btnAddGesture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +31,11 @@ public class ListGestureActivity extends AppCompatActivity {
     }
 
     void findviews(){
+        btnGesturePhoneCall = (Button)findViewById(R.id.button6);
+        btnAddGesture = (Button)findViewById(R.id.button7);
         lv=(ListView)findViewById(R.id.listView);
         File path= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File file=new File(path,"gesture");
+        File file=new File(path,"gesture.txt");
         library= GestureLibraries.fromFile(file);
 
         SharedPreferences phoneBook=getSharedPreferences("phoneBook",MODE_PRIVATE);
@@ -46,7 +52,6 @@ public class ListGestureActivity extends AppCompatActivity {
                     items.put("pic",ges.toBitmap(80,80,5, Color.BLUE));
                     items.put("name",gesName);
                     items.put("phone",phoneBook.getString(gesName,"Null"));
-
                     data.add(items);
                 }
             }
@@ -55,5 +60,15 @@ public class ListGestureActivity extends AppCompatActivity {
         //將ArrayAdapter設定到ListView上顯示
         GestureAdapter gesAdapter=new GestureAdapter(this,data);
         lv.setAdapter(gesAdapter);
+    }
+
+    public void onGesturePhoneCall(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onAddGesture(View view){
+        Intent intent = new Intent(this, AddGestureActivity.class);
+        startActivity(intent);
     }
 }

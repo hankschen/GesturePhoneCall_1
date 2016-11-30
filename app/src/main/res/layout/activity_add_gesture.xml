@@ -77,7 +77,6 @@
             android:enabled="false"
             android:onClick="addGesture"
             android:id="@+id/button3" />
-
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -85,6 +84,14 @@
             android:text="@string/ClearGesture"
             android:onClick="clearGesture"
             android:id="@+id/button4" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:onClick="onCancel"
+            android:id="@+id/button5" />
+
     </LinearLayout>
 
 </LinearLayout>

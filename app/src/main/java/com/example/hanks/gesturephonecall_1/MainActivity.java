@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
             File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File file = new File(path, "gesture");
+            File file = new File(path, "gesture.txt");
             GestureLibrary library = GestureLibraries.fromFile(file);
             ArrayList<Prediction> predictions = library.recognize(gesture);
 

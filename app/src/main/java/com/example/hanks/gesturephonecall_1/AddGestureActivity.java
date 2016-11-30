@@ -1,5 +1,6 @@
 package com.example.hanks.gesturephonecall_1;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -18,7 +19,7 @@ import java.io.File;
 public class AddGestureActivity extends AppCompatActivity {
     EditText etPhoneNumber, etGestureName;
     GestureOverlayView overlayView;
-    Button btnAddGesture, btnClearGesture;
+    Button btnAddGesture, btnClearGesture, btnCancel;
     String gesName, phoneNum;
 
     @Override
@@ -35,7 +36,7 @@ public class AddGestureActivity extends AppCompatActivity {
         overlayView.addOnGestureListener(gestureListener);
         btnAddGesture = (Button)findViewById(R.id.button3);
         btnClearGesture = (Button)findViewById(R.id.button4);
-
+        btnCancel = (Button)findViewById(R.id.button5);
     }
 
     //以 OnGestureListener 判斷該輸入的都有輸入,就可儲存
@@ -57,24 +58,19 @@ public class AddGestureActivity extends AppCompatActivity {
 
         @Override
         public void onGesture(GestureOverlayView overlay, MotionEvent event) {
-
         }
-
         @Override
         public void onGestureEnded(GestureOverlayView overlay, MotionEvent event) {
-
         }
-
         @Override
         public void onGestureCancelled(GestureOverlayView overlay, MotionEvent event) {
-
         }
     };
 
     public void addGesture(View view){
         //先設定手勢資料庫檔案儲存的路徑及檔案名稱
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File file = new File(path, "gesture");
+        File file = new File(path, "gesture.txt");
         //從 GestureLibraries 設定檔案後,得到 GestureLibrary 型別的物件
         GestureLibrary library = GestureLibraries.fromFile(file);
 
@@ -108,5 +104,10 @@ public class AddGestureActivity extends AppCompatActivity {
 
     public void clearGesture(View v){
         overlayView.clear(true);
+    }
+
+    public void onCancel(View view){
+        Intent intent = new Intent(AddGestureActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
